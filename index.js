@@ -12,7 +12,7 @@ const db = new sqlite3.Database("./dua_main.sqlite", (err) => {
   }
 });
 
-// Endpoint to fetch categories
+// categories API
 app.get("/categories", (req, res) => {
   db.all("SELECT * FROM category", (err, rows) => {
     if (err) {
@@ -25,9 +25,22 @@ app.get("/categories", (req, res) => {
   });
 });
 
-//subcategories
+//subcategories API
 app.get("/subcategories", (req, res) => {
   db.all("SELECT * FROM sub_category", (err, data) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    console.log(data);
+    res.json(data);
+  });
+});
+
+//dua API
+app.get("/duas", (req, res) => {
+  db.all("SELECT * FROM dua", (err, data) => {
     if (err) {
       console.error(err.message);
       res.status(500).json({ error: "Internal Server Error" });
