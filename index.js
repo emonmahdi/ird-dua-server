@@ -25,6 +25,19 @@ app.get("/categories", (req, res) => {
   });
 });
 
+//subcategories
+app.get("/subcategories", (req, res) => {
+  db.all("SELECT * FROM sub_category", (err, data) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    console.log(data);
+    res.json(data);
+  });
+});
+
 app.get("/", (req, res) => {
   res.send("Get the dua from IRD");
 });
