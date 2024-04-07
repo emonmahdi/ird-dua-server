@@ -1,8 +1,16 @@
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const app = express();
+const cors = require("cors");
 
 const port = process.env.PORT || 5000;
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+  })
+);
+app.use(express.json());
 
 const db = new sqlite3.Database("./dua_main.sqlite", (err) => {
   if (err) {
